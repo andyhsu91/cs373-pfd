@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 # ------------------------------
-# projects/collatz/RunCollatz.py
 # Copyright (C) 2011
 # Glenn P. Downing
 # -------------------------------

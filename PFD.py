@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 # ---------------------------
-# projects/collatz/Collatz.py
 # Copyright (C) 2011
 # Glenn P. Downing
 # ---------------------------
@@ -26,9 +25,7 @@ def pfd_vertices_init () :
 	read in
 	"""
 	global vertices
-	for x in range(0, numVertices) :
-		vertex = Vertex();
-		vertices[x] = vertex;
+	vertices = [Vertex() for _ in range(numVertices)]
 
 # ----------------
 # pfd_process_rule
