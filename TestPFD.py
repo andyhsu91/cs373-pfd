@@ -31,7 +31,8 @@ class TestPFD (unittest.TestCase) :
     # vertices_init
     # -------------
 
-	def test_vertices_init_1 (self) :		
+	def test_vertices_init_1 (self) :
+				
 
 	# ------------
 	# process_rule
