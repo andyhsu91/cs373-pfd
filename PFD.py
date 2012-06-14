@@ -9,8 +9,8 @@ class Vertex(object) :
 
 	def __init__(self):
 		self.numPred = -1
-		self.listPred = None
-		self.listSuc = None
+		self.listPred = []
+		self.listSuc = []
 
 # ----------------
 # pfd_process_rule
@@ -19,14 +19,16 @@ class Vertex(object) :
 def pfd_process_rule (l, vertices) :
 	"""
 	processes rules to the corresponding vertex
-	l is a list of ints
+	l is a list of strings of ints
 	"""
+	for x in range(0, len(l)) :
+		l[x] = int(l[x])
+		
+	vertices[l[0]].numPred = l[1]
 
-	vertices[l[0]-1].numPred = int(l[1])
-	
 	for x in range(2, l[1]+2) :
-		vertices[l[0]-1].listPred += int(l[x])
-		vertices[l[x]-1].listSuc += int([l[0]])		
+		vertices[l[0]].listPred += l[x]
+		vertices[l[x]].listSuc += [l[0]]
 
 # ---------
 # pfd_read
@@ -43,14 +45,15 @@ def pfd_read (r) :
 	l = s.split()
 	if len(l) < 2 :
 		return None
-
+		
 	numVertices = int(l[0])
 	numRules = int(l[1])
 	
 	assert numVertices > 0
 	assert numRules > 0
+	assert numVertices > numRules
 	
-	vertices = [Vertex() for _ in range(numVertices)]
+	vertices = [Vertex() for _ in range(numVertices + 1)]
 
 	for x in range(0, numRules) :
 		s = r.readline()
@@ -80,7 +83,7 @@ def pfd_print (w, v) :
 		string += str(v[x])
 		string += " "	
 	
-	w.write(string)
+	w.write(string + "\n")
 
 # -------------
 # pfd_zero_pred
@@ -102,9 +105,9 @@ def pfd_sortbucket(zeroPred) :
 	zeroPred is an unsorted list of vertices with zero predecessors
 	"""
 
-# --------------
-# pfd_sortbucket
-# --------------
+# ----------
+# pfd_update
+# ----------
 
 def pfd_update(listSuc) :
 	"""
@@ -126,7 +129,7 @@ def pfd_eval (vertices) :
 	
 	# Start to evaluate here
 	
-	# loop len(ordered) == len(vertices)
+	# loop len(ordered) == len(vertices)-1
 		# for each vertex, check no of pred
 		# add all 0 zeropred to bucket
 		# v = pfd_sortbucket(zeroPred)   sorts bucket by vertex value
