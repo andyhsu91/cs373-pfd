@@ -81,8 +81,15 @@ class TestPFD (unittest.TestCase) :
 		vertices[5].listSuc = [3, 2]
 		r = StringIO.StringIO("5 2\n3 2 1 5\n2 2 5 3\n")
 		v = pfd_read(r)
-		self.assert_(len(vertices)-1 == v)
-		self.assert_(vertices == v)
+		self.assert_(len(vertices) == len(v))
+		self.assert_(vertices[3].numPred == v[3].numPred)
+		self.assert_(vertices[3].listPred == v[3].listPred)
+		self.assert_(vertices[2].numPred == v[2].numPred)
+		self.assert_(vertices[2].listPred == v[2].listPred)
+		self.assert_(vertices[1].listSuc == v[1].listSuc)
+		self.assert_(vertices[1].listPred == v[1].listPred)
+		self.assert_(vertices[3].listSuc == v[3].listSuc)
+		self.assert_(vertices[5].listSuc == v[5].listSuc)
 		
 
 	# -------------

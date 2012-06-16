@@ -8,7 +8,7 @@
 class Vertex(object) :
 
 	def __init__(self):
-		self.numPred = -1
+		self.numPred = 0
 		self.listPred = []
 		self.listSuc = []
 
@@ -27,7 +27,7 @@ def pfd_process_rule (l, vertices) :
 	vertices[l[0]].numPred = l[1]
 
 	for x in range(2, l[1]+2) :
-		vertices[l[0]].listPred += l[x]
+		vertices[l[0]].listPred += [l[x]]
 		vertices[l[x]].listSuc += [l[0]]
 
 # ---------
