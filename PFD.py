@@ -78,11 +78,12 @@ def pfd_print (w, v) :
 	v is a list of ordered ints
 	"""
 	assert v != None
+	assert v != []
 	string = ""
-	for x in range(0, len(v)) :
+	for x in range(0, len(v)-1) :
 		string += str(v[x])
 		string += " "	
-	
+	string += str(v[len(v)-1])
 	w.write(string + "\n")
 
 # -------------
@@ -93,12 +94,23 @@ def pfd_zero_pred(vertices) :
 	"""
 	loop through all vertices and check for zero pred
 	returns a bucket of zero pred and marks the numPred = -1
+	also decrements the number pred for teh sucessors
 	"""
 	result = []
 	for x in range(1, len(vertices)) :
 		if (vertices[x].numPred == 0) :
 			result += [x]
 			vertices[x].numPred = -1
+			# Decrement sucessors
+			tempSuc = vertices[x].listSuc
+			tempResult = []
+			for y in range(len(tempSuc)) :
+				vertices[tempSuc[y]].numPred -= 1
+				if vertices[tempSuc[y]].numPred == 0 :
+					vertices[tempSuc[y]].numPred = -1
+					tempResult += [tempSuc[y]]
+			pfd_sortbucket(tempResult)
+			result += tempResult
 	return result
 
 # --------------
@@ -111,24 +123,7 @@ def pfd_sortbucket(zeroPred) :
 	zeroPred is an unsorted list of vertices with zero predecessors
 	"""
 	zeroPred.sort()
-	return zeroPred
-
-# ----------
-# pfd_update
-# ----------
-
-def pfd_update(zeroPred, vertices) :
-	"""
-	updates the numPred for the global list of vertices by
-	decrementing the value.
-	listSuc is the list of vertices to be updated
-	"""
-	for x in range(len(zeroPred)) :
-		tempSuc = vertices[zeroPred[x]].listSuc
-		for y in range(len(tempSuc)) :
-			vertices[tempSuc[y]].numPred -= 1
-	return vertices
-			
+	return zeroPred		
 
 # --------
 # pfd_eval
@@ -147,7 +142,6 @@ def pfd_eval (vertices) :
 		zeroPred = pfd_zero_pred(vertices)
 		zeroPred = pfd_sortbucket(zeroPred)
 		ordered += zeroPred
-		pfd_update(zeroPred, vertices)
 	
 	return ordered
 
