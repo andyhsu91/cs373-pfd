@@ -138,21 +138,16 @@ def pfd_eval (vertices) :
 	"""
 	evaluates the list of vertices and returns another list ordered
 	"""
-	ordered = None
-	zeroPred = None
+	ordered = []
+	
 	
 	# Start to evaluate here
 	
-	# loop len(ordered) == len(vertices)-1
-		# for each vertex, check no of pred
-		# add all 0 zeropred to bucket
-		# v = pfd_sortbucket(zeroPred)   sorts bucket by vertex value
-		# once bucket is sort, append to ordered
-		
-		# ordered += v
-		
-		# pfd_update    updates all sucesssor
-		
+	while len(ordered) != len(vertices)-1 :
+		zeroPred = pfd_zero_pred(vertices)
+		zeroPred = pfd_sortbucket(zeroPred)
+		ordered += zeroPred
+		pfd_update(zeroPred, vertices)
 	
 	return ordered
 

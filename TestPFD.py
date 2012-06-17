@@ -198,15 +198,49 @@ class TestPFD (unittest.TestCase) :
 		self.assert_(vertices[8].numPred == 3)
 		self.assert_(vertices[9].numPred == 3)
 
-    # ----
-    # eval
-    # ----
+	# ----
+	# eval
+	# ----
+    	
+	def test_eval_1 (self) :
+		vertices = [Vertex() for _ in range(6)]
+		vertices[3].numPred = 2
+		vertices[3].listPred = [1, 5]
+		vertices[2].numPred = 2
+		vertices[2].listPred = [5, 3]
+		vertices[4].numPred = 1
+		vertices[4].listPred = [3]
+		vertices[5].numPred = 1
+		vertices[5].listPred = [1]
+		vertices[1].listSuc = [3, 5]
+		vertices[3].listSuc = [2, 4]
+		vertices[5].listSuc = [2, 3]
+		result = pfd_eval(vertices)
+		self.assert_(result == [1, 5, 3, 2, 4])
+	
+	def test_eval_3 (self) :
+		vertices = [Vertex() for _ in range(7)]
+		vertices[2].numPred = 2
+		vertices[2].listPred = [1, 3]
+		vertices[3].numPred = 1
+		vertices[3].listPred = [1]
+		vertices[4].numPred = 3
+		vertices[4].listPred = [2, 5, 6]
+		vertices[5].numPred = 1
+		vertices[5].listPred = [3]
+		vertices[6].numPred = 1
+		vertices[6].listPred = [5]
+		vertices[1].listSuc = [2, 3]
+		vertices[2].listSuc = [4]
+		vertices[3].listSuc = [2, 5]
+		vertices[5].listSuc = [4, 6]
+		vertices[6].listSuc = [4]
+		result = pfd_eval(vertices)
+		self.assert_(result == [1, 3, 2, 5, 6, 4])
 
-	# def test_eval_1 (self) :
-
-    # -----
-    # print
-    # -----
+	# -----
+	# print
+	# -----
 
 	def test_print_1 (self) :
 		w = StringIO.StringIO()
@@ -223,9 +257,9 @@ class TestPFD (unittest.TestCase) :
 		pfd_print(w, [])
 		self.assert_(w.getvalue() == "\n")
 
-    # -----
-    # solve
-    # -----
+	# -----
+	# solve
+	# -----
 
 	# def test_solve_1 (self) :
 
