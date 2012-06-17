@@ -89,11 +89,17 @@ def pfd_print (w, v) :
 # pfd_zero_pred
 # -------------
 
-def pfd_zero_pred() :
+def pfd_zero_pred(vertices) :
 	"""
 	loop through all vertices and check for zero pred
 	returns a bucket of zero pred and marks the numPred = -1
 	"""
+	result = []
+	for x in range(1, len(vertices)) :
+		if (vertices[x].numPred == 0) :
+			result += [x]
+			vertices[x].numPred = -1
+	return result
 
 # --------------
 # pfd_sortbucket
@@ -104,17 +110,25 @@ def pfd_sortbucket(zeroPred) :
 	given a list of zero predecessors, sort by vertex value
 	zeroPred is an unsorted list of vertices with zero predecessors
 	"""
+	zeroPred.sort()
+	return zeroPred
 
 # ----------
 # pfd_update
 # ----------
 
-def pfd_update(listSuc) :
+def pfd_update(zeroPred, vertices) :
 	"""
 	updates the numPred for the global list of vertices by
 	decrementing the value.
 	listSuc is the list of vertices to be updated
 	"""
+	for x in range(len(zeroPred)) :
+		tempSuc = vertices[zeroPred[x]].listSuc
+		for y in range(len(tempSuc)) :
+			vertices[tempSuc[y]].numPred -= 1
+	return vertices
+			
 
 # --------
 # pfd_eval
