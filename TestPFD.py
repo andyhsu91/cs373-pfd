@@ -19,8 +19,8 @@ To test the program:
 import StringIO
 import unittest
 
-from PFD import Vertex, pfd_process_rule, pfd_read, pfd_zero_pred, \
-	pfd_sortbucket, pfd_print, pfd_eval, pfd_solve
+from PFD import Vertex, pfd_process_rule, pfd_read,  \
+	pfd_zero_pred, pfd_print, pfd_eval, pfd_solve
 
 # -------
 # TestPFD
@@ -91,12 +91,62 @@ class TestPFD (unittest.TestCase) :
 		self.assert_(vertices[3].listSuc == v[3].listSuc)
 		self.assert_(vertices[5].listSuc == v[5].listSuc)
 		
+	def test_read_2 (self) :
+		vertices = [Vertex() for _ in range(7)]
+		vertices[2].numPred = 2
+		vertices[2].listPred = [1, 3]
+		vertices[3].numPred = 1
+		vertices[3].listPred = [1]
+		vertices[4].numPred = 3
+		vertices[4].listPred = [2, 5, 6]
+		vertices[5].numPred = 1
+		vertices[5].listPred = [3]
+		vertices[6].numPred = 1
+		vertices[6].listPred = [5]
+		vertices[1].listSuc = [2, 3]
+		vertices[2].listSuc = [4]
+		vertices[3].listSuc = [2, 5]
+		vertices[5].listSuc = [4, 6]
+		vertices[6].listSuc = [4]
+		r = StringIO.StringIO("6 5\n2 2 1 3\n3 1 1\n4 3 2 5 6\n5 1 3\n6 1 5\n")
+		v = pfd_read(r)
+		self.assert_(len(vertices) == len(v))
+		self.assert_(vertices[2].numPred == v[2].numPred)
+		self.assert_(vertices[2].listPred == v[2].listPred)
+		self.assert_(vertices[3].numPred == v[3].numPred)
+		self.assert_(vertices[3].listPred == v[3].listPred)
+		self.assert_(vertices[4].numPred == v[4].numPred)
+		self.assert_(vertices[4].listPred == v[4].listPred)
+		self.assert_(vertices[5].numPred == v[5].numPred)
+		self.assert_(vertices[5].listPred == v[5].listPred)
+		self.assert_(vertices[6].numPred == v[6].numPred)
+		self.assert_(vertices[6].listPred == v[6].listPred)
+		self.assert_(vertices[1].listSuc == v[1].listSuc)
+		self.assert_(vertices[2].listSuc == v[2].listSuc)
+		self.assert_(vertices[3].listSuc == v[3].listSuc)
+		self.assert_(vertices[4].listSuc == v[4].listSuc)
+		self.assert_(vertices[5].listSuc == v[5].listSuc)
+		self.assert_(vertices[6].listSuc == v[6].listSuc)
 
+	def test_read_3 (self) :
+		vertices = [Vertex() for _ in range(3)]
+		vertices[1].numPred = 1
+		vertices[1].listPred = [2]
+		vertices[2].listSuc = [1]
+		r = StringIO.StringIO("2 1\n1 1 2\n2 0")
+		v = pfd_read(r)
+		self.assert_(len(vertices) == len(v))
+		self.assert_(vertices[1].numPred == v[1].numPred)
+		self.assert_(vertices[1].listPred == v[1].listPred)
+		self.assert_(vertices[2].numPred == v[2].numPred)
+		self.assert_(vertices[2].listPred == v[2].listPred)
+		self.assert_(vertices[2].listSuc == v[2].listSuc)
+		
 	# -------------
 	# pfd_zero_pred
 	# -------------
 	
-	def test_pfd_zero_pred_1 (self) :
+	def test_zero_pred_1 (self) :
 		vertices = [Vertex() for _ in range(6)]
 		vertices[3].numPred = 2
 		vertices[3].listPred = [1, 5]
@@ -110,28 +160,48 @@ class TestPFD (unittest.TestCase) :
 		vertices[3].listSuc = [2, 4]
 		vertices[5].listSuc = [2, 3]
 		result = pfd_zero_pred(vertices)
-		self.assert_(result == [1, 5])
-		self.assert_(vertices[2].numPred == 1)
-		self.assert_(vertices[3].numPred == 0)
+		self.assert_(result == 1)
+		self.assert_(vertices[2].numPred == 2)
+		self.assert_(vertices[3].numPred == 1)
 		self.assert_(vertices[4].numPred == 1)
-		self.assert_(vertices[5].numPred == -1)
+		self.assert_(vertices[5].numPred == 0)
+		
+	def test_zero_pred_2 (self) :
+		vertices = [Vertex() for _ in range(5)]
+		vertices[1].numPred = 1
+		vertices[1].listPred = [3]
+		vertices[1].listSuc = [2]
+		vertices[2].numPred = 2
+		vertices[2].listPred = [1, 3]
+		vertices[2].listSuc = [4]
+		vertices[3].numPred = 0
+		vertices[3].listPred = []
+		vertices[3].listSuc = [1, 2, 4]
+		vertices[4].numPred = 2
+		vertices[4].listPred = [3, 2]
+		vertices[4].listSuc = []
 		result = pfd_zero_pred(vertices)
-
-	# --------------
-	# pfd_sortbucket
-	# --------------
-	
-	def test_pfd_sortbucket_1 (self) :
-		result = pfd_sortbucket([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-		self.assert_(result == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-
-	def test_pfd_sortbucket_2 (self) :
-		result = pfd_sortbucket([3, 7, 1, 2, 10, 8, 5, 9, 4, 6])
-		self.assert_(result == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-
-	def test_pfd_sortbucket_3 (self) :
-		result = pfd_sortbucket([10, 9, 8, 7, 6, 5, 4, 3, 2, 1])
-		self.assert_(result == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+		self.assert_(result == 3)
+		
+	def test_zero_pred_3 (self) :
+		vertices = [Vertex() for _ in range(7)]
+		vertices[2].numPred = 2
+		vertices[2].listPred = [1, 3]
+		vertices[3].numPred = 1
+		vertices[3].listPred = [1]
+		vertices[4].numPred = 3
+		vertices[4].listPred = [2, 5, 6]
+		vertices[5].numPred = 1
+		vertices[5].listPred = [3]
+		vertices[6].numPred = 1
+		vertices[6].listPred = [5]
+		vertices[1].listSuc = [2, 3]
+		vertices[2].listSuc = [4]
+		vertices[3].listSuc = [2, 5]
+		vertices[5].listSuc = [4, 6]
+		vertices[6].listSuc = [4]
+		result = pfd_zero_pred(vertices)
+		self.assert_(result == 1)
 
 	# ----
 	# eval
@@ -151,7 +221,6 @@ class TestPFD (unittest.TestCase) :
 		vertices[3].listSuc = [2, 4]
 		vertices[5].listSuc = [2, 3]
 		result = pfd_eval(vertices)
-		print result
 		self.assert_(result == [1, 5, 3, 2, 4])
 	
 	def test_eval_2 (self) :
@@ -173,6 +242,23 @@ class TestPFD (unittest.TestCase) :
 		vertices[6].listSuc = [4]
 		result = pfd_eval(vertices)
 		self.assert_(result == [1, 3, 2, 5, 6, 4])
+		
+	def test_eval_3 (self) :
+		vertices = [Vertex() for _ in range(5)]
+		vertices[1].numPred = 1
+		vertices[1].listPred = [3]
+		vertices[1].listSuc = [2]
+		vertices[2].numPred = 2
+		vertices[2].listPred = [1, 3]
+		vertices[2].listSuc = [4]
+		vertices[3].numPred = 0
+		vertices[3].listPred = []
+		vertices[3].listSuc = [1, 2, 4]
+		vertices[4].numPred = 2
+		vertices[4].listPred = [3, 2]
+		vertices[4].listSuc = []
+		result = pfd_eval(vertices)
+		self.assert_(result == [3, 1, 2, 4])
 
 	# -----
 	# print
@@ -181,23 +267,39 @@ class TestPFD (unittest.TestCase) :
 	def test_print_1 (self) :
 		w = StringIO.StringIO()
 		pfd_print(w, [1, 2, 3, 4, 5])
-		self.assert_(w.getvalue() == "1 2 3 4 5\n")
+		self.assert_(w.getvalue() == "1 2 3 4 5")
 	
 	def test_print_2 (self) :
 		w = StringIO.StringIO()
 		pfd_print(w, [1])
-		self.assert_(w.getvalue() == "1\n")
+		self.assert_(w.getvalue() == "1")
 	
 	def test_print_3 (self) :
 		w = StringIO.StringIO()
 		pfd_print(w, [1, 3, 5, 7, 9, 2, 4, 6, 8])
-		self.assert_(w.getvalue() == "1 3 5 7 9 2 4 6 8\n")
+		self.assert_(w.getvalue() == "1 3 5 7 9 2 4 6 8")
 
 	# -----
 	# solve
 	# -----
 
-	# def test_solve_1 (self) :
+	def test_solve_1 (self) :
+		r = StringIO.StringIO("5 4\n3 2 1 5\n2 2 5 3\n4 1 3\n5 1 1\n")
+		w = StringIO.StringIO()
+		pfd_solve(r, w)
+		self.assert_(w.getvalue() == "1 5 3 2 4")
+
+	def test_solve_2 (self) :	
+		r = StringIO.StringIO("6 5\n2 2 1 3\n3 1 1\n4 3 2 5 6\n5 1 3\n6 1 5\n")
+		w = StringIO.StringIO()
+		pfd_solve(r, w)
+		self.assert_(w.getvalue() == "1 3 2 5 6 4")
+
+	def test_solve_3 (self) :
+		r = StringIO.StringIO("2 1\n1 1 2\n2 0")
+		w = StringIO.StringIO()
+		pfd_solve(r, w)
+		self.assert_(w.getvalue() == "2 1")
 
 # ----
 # main

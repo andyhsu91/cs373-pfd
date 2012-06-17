@@ -21,7 +21,6 @@ To document the program
 
 import sys
 
-
 class Vertex(object) :
 
 	def __init__(self):
@@ -38,14 +37,17 @@ def pfd_process_rule (l, vertices) :
 	processes rules to the corresponding vertex
 	l is a list of strings of ints
 	"""
+	assert vertices != []
+	assert l != []
 	for x in range(0, len(l)) :
 		l[x] = int(l[x])
 		
 	vertices[l[0]].numPred = l[1]
 
-	for x in range(2, l[1]+2) :
-		vertices[l[0]].listPred += [l[x]]
-		vertices[l[x]].listSuc += [l[0]]
+	if l[1] != 0 :
+		for x in range(2, l[1]+2) :
+			vertices[l[0]].listPred += [l[x]]
+			vertices[l[x]].listSuc += [l[0]]
 
 # ---------
 # pfd_read
@@ -101,8 +103,7 @@ def pfd_print (w, v) :
 		string += str(v[x])
 		string += " "	
 	string += str(v[len(v)-1])
-	w.write(string + "\n")
-
+	w.write(string)
 
 # -------------
 # pfd_zero_pred
@@ -114,29 +115,21 @@ def pfd_zero_pred(vertices) :
 	returns a bucket of zero pred and marks the numPred = -1
 	also decrements the number pred for teh sucessors
 	"""
+	assert vertices != []
 	result = []
+	# Find all zero preds
 	for x in range(1, len(vertices)) :
 		if (vertices[x].numPred == 0) :
-			result += [x]
-			vertices[x].numPred = -1
-			# Decrement sucessors
-			tempSuc = vertices[vertices[x]].listSuc
-			for y in range(len(tempSuc)) :
-				vertices[tempSuc[y]].numPred -= 1
-	return result
-
-
-# --------------
-# pfd_sortbucket
-# --------------
-
-def pfd_sortbucket(zeroPred) :
-	"""
-	given a list of zero predecessors, sort by vertex value
-	zeroPred is an unsorted list of vertices with zero predecessors
-	"""
-	zeroPred.sort()
-	return zeroPred
+			heapq.heappush(result, x)					# <------------ HEAP
+	
+	# Take smallest zero pred, mark and update
+	val = heapq.heappop(result)	
+	
+	tempSuc = vertices[val].listSuc
+	for x in range(len(tempSuc)) :
+		vertices[tempSuc[x]].numPred -= 1		
+	vertices[val].numPred = -1
+	return val
 
 # --------
 # pfd_eval
@@ -146,16 +139,15 @@ def pfd_eval (vertices) :
 	"""
 	evaluates the list of vertices and returns another list ordered
 	"""
+	assert vertices != []
 	ordered = []
-	
 	
 	# Start to evaluate here
 	
 	while len(ordered) != len(vertices)-1 :
 		zeroPred = pfd_zero_pred(vertices)
-		zeroPred = pfd_sortbucket(zeroPred)
 		ordered += zeroPred
-	
+	assert ordered != []
 	return ordered
 
 # ---------
