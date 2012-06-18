@@ -1,0 +1,77 @@
+commit b380fb1c4611ed4c8e6f3228f3112f90c18d0c29
+Author: Andy Hsu <andyhsu@cs.utexas.edu>
+Date:   Mon Jun 18 11:41:49 2012 -0500
+
+    Final version minus log
+
+commit 6e227ee430db8af4c01cf10b06b5c2715296d766
+Author: Andy Hsu <andyhsu@cs.utexas.edu>
+Date:   Sun Jun 17 19:58:26 2012 -0500
+
+    It Works by sphere
+
+commit 18699abf36801bfab1eb702b91578aa1922bc6bb
+Author: Andy Hsu <andyhsu@cs.utexas.edu>
+Date:   Sun Jun 17 18:57:00 2012 -0500
+
+    Accepted on sphere, working in binary heap
+
+commit 2c82dbcde08f6460b53c4a6d53bedcfa5bb36a5a
+Author: Shreedam Parikh <shreedam@cs.utexas.edu>
+Date:   Sat Jun 16 21:57:27 2012 -0500
+
+    Need to redo ordering
+
+commit 8a1edee59fa4c1db95ae689be72aed155bc034d9
+Author: Shreedam Parikh <shreedam@cs.utexas.edu>
+Date:   Sat Jun 16 20:25:25 2012 -0500
+
+    Prototype complete except solve function
+
+commit e4683fd655cee4edc254fe4c1379af7819ada8cb
+Author: Shreedam Parikh <shreedam@cs.utexas.edu>
+Date:   Sat Jun 16 19:43:46 2012 -0500
+
+    Updated helper functions and their unti tests
+
+commit 05e36469ac28c1c9d0e38fc7eeea9cfadcee1ca2
+Author: Andy Hsu <andyhsu@cs.utexas.edu>
+Date:   Sat Jun 16 18:39:09 2012 -0500
+
+    Basic unit tests for input/output are working
+
+commit 79fb091dae3d9859c719bfae7d2914b09e30cb1e
+Author: andyhsu <andyhsu@andyhsu.(none)>
+Date:   Fri Jun 15 07:29:56 2012 -0500
+
+    Pushed zip of sample acceptance tests, need to check for circular loops
+
+commit 4d1838bde0757771686db088c222d9f996562e76
+Author: Andy Hsu <andyhsu@cs.utexas.edu>
+Date:   Thu Jun 14 16:45:27 2012 -0500
+
+    Partial unit testing done
+
+commit 77e92c9ef16b8d62dc4acdc67922ff61aff7f80a
+Author: Andy Hsu <andyhsu@cs.utexas.edu>
+Date:   Thu Jun 14 15:33:50 2012 -0500
+
+    Complete psuedo code
+
+commit ec8b6b19d8287df2ae1621ada623db2b6daf46a2
+Author: andyhsu <andyhsu@andyhsu.(none)>
+Date:   Wed Jun 13 16:09:04 2012 -0500
+
+    Created acceptance test generator and cleaned code minorly
+
+commit fe87101bec10148300d630350cf1056d17d19524
+Author: Andy Hsu <andyhsu@cs.utexas.edu>
+Date:   Wed Jun 13 12:51:05 2012 -0500
+
+    Finished the skeleton code with read and write capabilities
+
+commit ec54ec5f5e50185e527a18dd3e42f33067930268
+Author: Andy Hsu <andyhsu@cs.utexas.edu>
+Date:   Wed Jun 13 11:29:18 2012 -0500
+
+    Committing empty named files to git to work on
