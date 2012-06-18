@@ -20,6 +20,7 @@ To document the program
 # -------
 
 import sys
+import heapq
 
 class Vertex(object) :
 
@@ -123,6 +124,7 @@ def pfd_zero_pred(vertices) :
 			heapq.heappush(result, x)					# <------------ HEAP
 	
 	# Take smallest zero pred, mark and update
+	assert result != []
 	val = heapq.heappop(result)	
 	
 	tempSuc = vertices[val].listSuc
@@ -146,7 +148,7 @@ def pfd_eval (vertices) :
 	
 	while len(ordered) != len(vertices)-1 :
 		zeroPred = pfd_zero_pred(vertices)
-		ordered += zeroPred
+		ordered += [zeroPred]
 	assert ordered != []
 	return ordered
 

@@ -109,6 +109,7 @@ def pfd_zero_pred(vertices) :
 			heapq.heappush(result, x)					# <------------ HEAP
 	
 	# Take smallest zero pred, mark and update
+	assert result != []
 	val = heapq.heappop(result)	
 	
 	tempSuc = vertices[val].listSuc

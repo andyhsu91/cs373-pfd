@@ -18,6 +18,7 @@ To test the program:
 
 import StringIO
 import unittest
+import heapq
 
 from PFD import Vertex, pfd_process_rule, pfd_read,  \
 	pfd_zero_pred, pfd_print, pfd_eval, pfd_solve
