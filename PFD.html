@@ -1,0 +1,84 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module PFD</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>PFD</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/v/filer4b/v38q001/andyhsu/cs373-pfd/PFD.py">/v/filer4b/v38q001/andyhsu/cs373-pfd/PFD.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;---------------------------<br>
+#&nbsp;Copyright&nbsp;(C)&nbsp;2011<br>
+#&nbsp;Glenn&nbsp;P.&nbsp;Downing<br>
+#&nbsp;---------------------------</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="heapq.html">heapq</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="__builtin__.html#object">__builtin__.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="PFD.html#Vertex">Vertex</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Vertex">class <strong>Vertex</strong></a>(<a href="__builtin__.html#object">__builtin__.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="__builtin__.html#object">object</a>&nbsp;storing&nbsp;number&nbsp;of&nbsp;predecessors,<br>
+list&nbsp;of&nbsp;predecessors,&nbsp;and&nbsp;list&nbsp;of&nbsp;sucessors<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Vertex-__init__"><strong>__init__</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-pfd_eval"><strong>pfd_eval</strong></a>(vertices)</dt><dd><tt>evaluates&nbsp;the&nbsp;list&nbsp;of&nbsp;vertices&nbsp;and&nbsp;returns&nbsp;another&nbsp;list&nbsp;ordered</tt></dd></dl>
+ <dl><dt><a name="-pfd_print"><strong>pfd_print</strong></a>(w, v)</dt><dd><tt>prints&nbsp;the&nbsp;sorted&nbsp;tasks&nbsp;by&nbsp;dependecies<br>
+w&nbsp;is&nbsp;a&nbsp;writer<br>
+v&nbsp;is&nbsp;a&nbsp;list&nbsp;of&nbsp;ordered&nbsp;ints</tt></dd></dl>
+ <dl><dt><a name="-pfd_process_rule"><strong>pfd_process_rule</strong></a>(l, vertices)</dt><dd><tt>processes&nbsp;rules&nbsp;to&nbsp;the&nbsp;corresponding&nbsp;vertex<br>
+l&nbsp;is&nbsp;a&nbsp;list&nbsp;of&nbsp;strings&nbsp;of&nbsp;ints</tt></dd></dl>
+ <dl><dt><a name="-pfd_read"><strong>pfd_read</strong></a>(r)</dt><dd><tt>reads&nbsp;the&nbsp;file&nbsp;and&nbsp;creates&nbsp;a&nbsp;list&nbsp;to&nbsp;store&nbsp;vertices<br>
+r&nbsp;is&nbsp;a&nbsp;&nbsp;reader</tt></dd></dl>
+ <dl><dt><a name="-pfd_solve"><strong>pfd_solve</strong></a>(r, w)</dt><dd><tt>read,&nbsp;eval,&nbsp;print&nbsp;loop<br>
+r&nbsp;is&nbsp;a&nbsp;reader<br>
+w&nbsp;is&nbsp;a&nbsp;writer</tt></dd></dl>
+ <dl><dt><a name="-pfd_zero_pred"><strong>pfd_zero_pred</strong></a>(vertices)</dt><dd><tt>loop&nbsp;through&nbsp;all&nbsp;vertices&nbsp;and&nbsp;check&nbsp;for&nbsp;zero&nbsp;pred,&nbsp;adds&nbsp;them<br>
+to&nbsp;a&nbsp;bucket&nbsp;of&nbsp;zero&nbsp;pred,&nbsp;takes&nbsp;the&nbsp;smallest&nbsp;vertex&nbsp;and&nbsp;marks&nbsp;<br>
+the&nbsp;numPred&nbsp;=&nbsp;-1&nbsp;of&nbsp;that&nbsp;vertex&nbsp;also&nbsp;decrements&nbsp;the&nbsp;number&nbsp;pred&nbsp;<br>
+for&nbsp;the&nbsp;sucessors<br>
+vertices&nbsp;is&nbsp;the&nbsp;created&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;structure&nbsp;holding&nbsp;all&nbsp;the&nbsp;info</tt></dd></dl>
+</td></tr></table>
+</body></html>

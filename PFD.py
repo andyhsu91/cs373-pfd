@@ -8,7 +8,10 @@
 import heapq
 
 class Vertex(object) :
-
+	"""
+	object storing number of predecessors,
+	list of predecessors, and list of sucessors
+	"""
 	def __init__(self):
 		self.numPred = 0
 		self.listPred = []
@@ -97,9 +100,11 @@ def pfd_print (w, v) :
 
 def pfd_zero_pred(vertices) :
 	"""
-	loop through all vertices and check for zero pred
-	returns a bucket of zero pred and marks the numPred = -1
-	also decrements the number pred for teh sucessors
+	loop through all vertices and check for zero pred, adds them
+	to a bucket of zero pred, takes the smallest vertex and marks 
+	the numPred = -1 of that vertex	also decrements the number pred 
+	for the sucessors
+	vertices is the created object structure holding all the info
 	"""
 	assert vertices != []
 	result = []
